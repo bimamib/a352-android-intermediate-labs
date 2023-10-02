@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.likesapps
 
 import android.graphics.*
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.res.ResourcesCompat
@@ -33,11 +34,11 @@ class MainActivity : AppCompatActivity() {
         showText()
 
         binding.like.setOnClickListener {
+            showEars()
             showFace()
             showMouth(true)
             showEyes()
             showNose()
-            showEars()
         }
 
         binding.dislike.setOnClickListener {
@@ -110,6 +111,34 @@ class MainActivity : AppCompatActivity() {
         mPaint.color = ResourcesCompat.getColor(resources, R.color.red_ear, null)
         mCanvas.drawCircle(halfOfWidth - 300F, halfOfHeight - 100F, 60F, mPaint)
         mCanvas.drawCircle(halfOfWidth + 300F, halfOfHeight - 100F, 60F, mPaint)
+    }
+
+    private fun showHair() {
+        mCanvas.save()
+
+        val path = Path()
+
+        path.addCircle(halfOfWidth - 100F,halfOfHeight - 10F, 150F, Path.Direction.CCW)
+        path.addCircle(halfOfWidth + 100F,halfOfHeight - 10F, 150F, Path.Direction.CCW)
+
+        val mouth = RectF(halfOfWidth - 250F, halfOfHeight, halfOfWidth + 250F, halfOfHeight + 500F)
+        path.addOval(mouth, Path.Direction.CCW)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            mCanvas.clipPath(path, Region.Op.DIFFERENCE)
+        } else {
+            mCanvas.clipOutPath(path)
+        }
+
+        val face = RectF(left, top, right, bottom)
+
+        mPaint.color = ResourcesCompat.getColor(resources, R.color.brown_left_hair, null)
+        mCanvas.drawArc(face, 90F, 180F, false, mPaint)
+
+        mPaint.color = ResourcesCompat.getColor(resources, R.color.brown_right_hair, null)
+        mCanvas.drawArc(face, 270F, 180F, false, mPaint)
+
+        mCanvas.restore()
     }
 
     private fun showText() {
