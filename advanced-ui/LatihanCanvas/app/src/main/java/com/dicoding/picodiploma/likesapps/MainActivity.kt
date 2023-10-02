@@ -92,6 +92,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showNose() {
+        mPaint.color = ResourcesCompat.getColor(resources, R.color.black, null)
+        mCanvas.drawCircle(halfOfWidth - 40F, halfOfHeight + 140F, 15F, mPaint)
+        mCanvas.drawCircle(halfOfWidth + 40F, halfOfHeight + 140F, 15F, mPaint)
+    }
+
     private fun showText() {
         val mPaintText =  Paint(Paint.FAKE_BOLD_TEXT_FLAG).apply {
             textSize = 50F
