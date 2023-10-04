@@ -20,6 +20,11 @@ class WelcomeActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+
     }
 
     private fun setupView() {
