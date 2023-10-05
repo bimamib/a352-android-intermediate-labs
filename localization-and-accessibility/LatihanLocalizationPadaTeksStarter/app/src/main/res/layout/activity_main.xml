@@ -167,7 +167,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:text="Sepatu lari kece edisi terbatas. Memakai sepatu ini akan meningkatkan pemahamanmu ketika belajar coding.\n\nBarang selalu ada. Tersedia berbagai ukuran dan warna. Silakan langsung order!"
+        android:text="@string/description"
         android:textColor="#222"
         app:layout_constraintBottom_toTopOf="@+id/buyButton"
         app:layout_constraintEnd_toEndOf="parent"
