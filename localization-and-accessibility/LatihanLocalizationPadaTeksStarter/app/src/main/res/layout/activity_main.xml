@@ -168,7 +168,7 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/description"
-        android:textColor="#222"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/buyButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
