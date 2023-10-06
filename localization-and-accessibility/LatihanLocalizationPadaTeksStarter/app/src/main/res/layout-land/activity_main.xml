@@ -243,7 +243,7 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nameTextView"
-        app:srcCompat="@drawable/ic_baseline_settings_24"
+        app:srcCompat="@drawable/baseline_settings_24"
         app:tint="@color/black" />
 
     <androidx.constraintlayout.widget.Guideline
