@@ -1,4 +1,7 @@
 package com.dicoding.picodiploma.productdetail
 
-class RemoteDataSource {
+import android.content.Context
+
+class RemoteDataSource(private val context: Context) {
+
 }
