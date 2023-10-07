@@ -21,4 +21,19 @@ fun String.withCurrencyFormat(): String {
     val euroExchangeRate = 0.88
 
     var priceOnDollar = this.toDouble() / rupiahExchangeRate
+
+    var mCurrencyFormat = NumberFormat.getCurrencyInstance()
+    val deviceLocale = Locale.getDefault().country
+    when {
+        deviceLocale.equals("ES") -> {
+            priceOnDollar *= euroExchangeRate
+        }
+        deviceLocale.equals("ID") -> {
+            priceOnDollar *= rupiahExchangeRate
+        }
+        else -> {
+            mCurrencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
+        }
+    }
+    return mCurrencyFormat.format(priceOnDollar)
 }
