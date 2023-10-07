@@ -15,3 +15,10 @@ fun String.withDateFormat(): String {
     val date = format.parse(this) as Date
     return DateFormat.getDateInstance(DateFormat.FULL).format(date)
 }
+
+fun String.withCurrencyFormat(): String {
+    val rupiahExchangeRate = 12495.95
+    val euroExchangeRate = 0.88
+
+    var priceOnDollar = this.toDouble() / rupiahExchangeRate
+}
