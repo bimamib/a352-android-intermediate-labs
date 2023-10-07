@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+        setupData()
     }
 
     private fun setupAction() {
