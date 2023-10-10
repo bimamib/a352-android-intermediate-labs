@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
+            showImage()
         } else {
             Log.d("Photo Picker", "No media selected")
         }
@@ -46,6 +47,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun startCameraX() {
         Toast.makeText(this, "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showImage() {
+        currentImageUri?.let {
+            Log.d("Image URI", "showImage: $it")
+            binding.previewImageView.setImageURI(it)
+        }
     }
 
     private fun uploadImage() {
