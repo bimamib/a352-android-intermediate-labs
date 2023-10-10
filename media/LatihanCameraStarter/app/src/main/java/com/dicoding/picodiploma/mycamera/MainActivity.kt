@@ -18,6 +18,17 @@ class MainActivity : AppCompatActivity() {
 
     private var currentImageUri: Uri? = null
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+            }
+        }
+
     private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
         this,
         REQUIRED_PERMISSION
@@ -30,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         if (!allPermissionsGranted()) {
             //request permission
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
         binding.galleryButton.setOnClickListener { startGallery() }
