@@ -6,7 +6,10 @@ import com.dicoding.newsapp.data.NewsRepository
 import org.junit.Assert.*
 import com.dicoding.newsapp.utils.DataDummy
 import com.dicoding.newsapp.utils.getOrAwaitValue
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,7 +18,12 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class NewsDetailViewModelTest {
     @get:Rule
@@ -31,8 +39,23 @@ class NewsDetailViewModelTest {
         newsDetailViewModel = NewsDetailViewModel(newsRepository)
         newsDetailViewModel.setNewsData(dummyDetailNews)
     }
+
+    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
+
+    @Before
+    fun setupDispatcher() {
+        Dispatchers.setMain(testDispatcher)
+    }
+
+    @After
+    fun tearDownDispatcher() {
+        Dispatchers.resetMain()
+    }
+
+
+
     @Test
-    fun `when bookmarkStatus false Should call saveNews`() = runBlocking {
+    fun `when bookmarkStatus false Should call saveNews`() = runTest {
         val expectedBoolean = MutableLiveData<Boolean>()
         expectedBoolean.value = false
         `when`(newsRepository.isNewsBookmarked(dummyDetailNews.title)).thenReturn(expectedBoolean)
