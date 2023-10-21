@@ -1,4 +1,4 @@
-package com.dicoding.newsapp.utils
+package com.dicoding.newsapp
 
 import org.junit.Assert.*
 
