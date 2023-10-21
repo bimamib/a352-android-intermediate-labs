@@ -52,8 +52,6 @@ class NewsDetailViewModelTest {
         Dispatchers.resetMain()
     }
 
-
-
     @Test
     fun `when bookmarkStatus false Should call saveNews`() = runTest {
         val expectedBoolean = MutableLiveData<Boolean>()
