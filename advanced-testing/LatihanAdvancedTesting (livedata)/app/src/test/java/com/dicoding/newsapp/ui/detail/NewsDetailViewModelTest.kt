@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.dicoding.newsapp.data.NewsRepository
 import org.junit.Assert.*
 import com.dicoding.newsapp.utils.DataDummy
+import com.dicoding.newsapp.utils.MainDispatcherRule
 import com.dicoding.newsapp.utils.getOrAwaitValue
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -18,9 +16,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.junit.After
 
 @ExperimentalCoroutinesApi
@@ -40,16 +36,15 @@ class NewsDetailViewModelTest {
         newsDetailViewModel.setNewsData(dummyDetailNews)
     }
 
-    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Before
     fun setupDispatcher() {
-        Dispatchers.setMain(testDispatcher)
     }
 
     @After
     fun tearDownDispatcher() {
-        Dispatchers.resetMain()
     }
 
     @Test
@@ -60,5 +55,15 @@ class NewsDetailViewModelTest {
         newsDetailViewModel.bookmarkStatus.getOrAwaitValue()
         newsDetailViewModel.changeBookmark(dummyDetailNews)
         Mockito.verify(newsRepository).saveNews(dummyDetailNews)
+    }
+
+    @Test
+    fun `when bookmarkStatus true Should call deleteNews`() = runTest {
+        val expectedBoolean = MutableLiveData<Boolean>()
+        expectedBoolean.value = true
+        `when`(newsRepository.isNewsBookmarked(dummyDetailNews.title)).thenReturn(expectedBoolean)
+        newsDetailViewModel.bookmarkStatus.getOrAwaitValue()
+        newsDetailViewModel.changeBookmark(dummyDetailNews)
+        Mockito.verify(newsRepository).deleteNews(dummyDetailNews.title)
     }
 }
