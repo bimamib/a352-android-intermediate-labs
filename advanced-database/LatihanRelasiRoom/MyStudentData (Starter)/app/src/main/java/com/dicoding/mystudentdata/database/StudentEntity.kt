@@ -24,7 +24,7 @@ data class Course(
     val name: String,
 )
 
-data class StudentEntity(
+data class StudentAndUniversity(
     @Embedded
     val student: Student,
 

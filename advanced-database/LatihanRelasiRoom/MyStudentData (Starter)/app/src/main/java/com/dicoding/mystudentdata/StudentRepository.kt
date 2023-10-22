@@ -2,6 +2,7 @@ package com.dicoding.mystudentdata
 
 import androidx.lifecycle.LiveData
 import com.dicoding.mystudentdata.database.Student
+import com.dicoding.mystudentdata.database.StudentAndUniversity
 import com.dicoding.mystudentdata.database.StudentDao
 import com.dicoding.mystudentdata.helper.InitialDataSource
 
