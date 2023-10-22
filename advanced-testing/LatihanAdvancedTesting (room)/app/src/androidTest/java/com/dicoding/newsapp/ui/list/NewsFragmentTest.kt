@@ -5,6 +5,7 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import org.junit.Assert.*
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -17,6 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.dicoding.newsapp.R
+import com.dicoding.newsapp.utils.EspressoIdlingResource
 import okhttp3.mockwebserver.MockResponse
 
 @RunWith(AndroidJUnit4::class)
@@ -28,11 +30,13 @@ class NewsFragmentTest {
     fun setUp() {
         mockWebServer.start(8080)
         ApiConfig.BASE_URL = "http://127.0.0.1:8080/"
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
 
     @After
     fun tearDown() {
         mockWebServer.shutdown()
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
