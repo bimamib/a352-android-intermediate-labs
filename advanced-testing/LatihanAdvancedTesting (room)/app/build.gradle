@@ -35,9 +35,15 @@ android {
     }
     namespace 'com.dicoding.newsapp'
 
+    testOptions {
+        animationsDisabled = true
+    }
+
 }
 
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
     //desugaring
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.2"
 
@@ -69,6 +75,9 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0" // InstantTaskExecutorRule
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4" //TestDispatcher
 
+    //TestCoroutineDispatcher
+    debugImplementation("androidx.fragment:fragment-testing:1.4.1") //launchFragmentInContainer
+
     //room
     implementation "androidx.room:room-runtime:2.5.0"
     kapt "androidx.room:room-compiler:2.5.0"
@@ -82,4 +91,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1" //viewModelScope
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1" //liveData
     implementation "androidx.room:room-ktx:2.5.0"
+
+    //mock web server
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.3"
+    androidTestImplementation "com.squareup.okhttp3:okhttp-tls:4.9.3"
+
 }
