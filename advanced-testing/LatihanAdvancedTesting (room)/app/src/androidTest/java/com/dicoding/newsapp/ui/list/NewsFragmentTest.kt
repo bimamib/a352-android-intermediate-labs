@@ -2,9 +2,11 @@ package com.dicoding.newsapp.ui.list
 
 import android.os.Bundle
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.recyclerview.widget.RecyclerView
 import org.junit.Assert.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.dicoding.newsapp.JsonConverter
@@ -48,5 +50,11 @@ class NewsFragmentTest {
             .check(matches(isDisplayed()))
         onView(withText("Inti Bumi Mendingin Lebih Cepat, Pertanda Apa? - detikInet"))
             .check(matches(isDisplayed()))
+        onView(withId(R.id.rv_news))
+            .perform(
+                RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                    hasDescendant(withText("Perjalanan Luar Angkasa Sebabkan Anemia - CNN Indonesia"))
+                )
+            )
     }
 }
