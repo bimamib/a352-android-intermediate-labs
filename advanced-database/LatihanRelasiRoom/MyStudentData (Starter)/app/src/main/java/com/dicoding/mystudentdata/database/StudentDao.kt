@@ -12,6 +12,9 @@ interface StudentDao {
     suspend fun insertUniversity(university: List<University>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCourseStudentCrossRef(courseStudentCrossRef: List<CourseStudentCrossRef>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCourse(course: List<Course>)
 
     @Query("SELECT * from student")
