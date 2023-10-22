@@ -39,10 +39,12 @@ class MainActivity : AppCompatActivity() {
                 getStudent()
                 return true
             }
+
             R.id.action_many_to_one -> {
                 getStudentAndUniversity()
                 true
             }
+
             R.id.action_one_to_many -> {
                 getUniversityAndStudent()
                 true

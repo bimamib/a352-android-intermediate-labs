@@ -26,15 +26,22 @@ class StudentAndUniversityAdapter :
         fun bind(data: StudentAndUniversity) {
             binding.tvItemName.text = data.student.name
             binding.tvItemUniversity.text = data.university?.name
-            binding.tvItemUniversity.visibility = View.VISIBLE        }
+            binding.tvItemUniversity.visibility = View.VISIBLE
+        }
     }
 
     class WordsComparator : DiffUtil.ItemCallback<StudentAndUniversity>() {
-        override fun areItemsTheSame(oldItem: StudentAndUniversity, newItem: StudentAndUniversity): Boolean {
+        override fun areItemsTheSame(
+            oldItem: StudentAndUniversity,
+            newItem: StudentAndUniversity
+        ): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: StudentAndUniversity, newItem: StudentAndUniversity): Boolean {
+        override fun areContentsTheSame(
+            oldItem: StudentAndUniversity,
+            newItem: StudentAndUniversity
+        ): Boolean {
             return oldItem.student.name == newItem.student.name
         }
     }
