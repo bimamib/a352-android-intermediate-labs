@@ -1,23 +1,31 @@
 package com.dicoding.newsapp.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.dicoding.newsapp.data.local.entity.NewsEntity
 import com.dicoding.newsapp.data.local.room.NewsDao
 
 class FakeNewsDao : NewsDao {
+
+    private  var newsData = mutableListOf<NewsEntity>()
+
     override fun getBookmarkedNews(): LiveData<List<NewsEntity>> {
-        TODO("Not yet implemented")
+        val observableNews = MutableLiveData<List<NewsEntity>>()
+        observableNews.value = newsData
+        return observableNews
     }
 
     override suspend fun saveNews(news: NewsEntity) {
-        TODO("Not yet implemented")
+        newsData.add(news)
     }
 
     override suspend fun deleteNews(newsTitle: String) {
-        TODO("Not yet implemented")
+        newsData.removeIf { it.title == newsTitle }
     }
 
     override fun isNewsBookmarked(title: String): LiveData<Boolean> {
-        TODO("Not yet implemented")
+        val observableExistence = MutableLiveData<Boolean>()
+        observableExistence.value = newsData.any { it.title == title }
+        return observableExistence
     }
 }
