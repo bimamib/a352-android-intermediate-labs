@@ -1,10 +1,7 @@
 package com.dicoding.newsapp.utils
 
-
 import org.junit.Assert
 import org.junit.Test
-import java.time.format.DateTimeParseException
-import java.time.zone.ZoneRulesException
 
 class DateFormatterTest {
     @Test
