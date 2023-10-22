@@ -57,4 +57,18 @@ class NewsFragmentTest {
                 )
             )
     }
+
+    @Test
+    fun getHeadlineNews_Error() {
+        val bundle = Bundle()
+        bundle.putString(NewsFragment.ARG_TAB, NewsFragment.TAB_NEWS)
+        launchFragmentInContainer<NewsFragment>(bundle, R.style.Theme_News)
+        val mockResponse = MockResponse()
+            .setResponseCode(500)
+        mockWebServer.enqueue(mockResponse)
+        onView(withId(R.id.tv_error))
+            .check(matches(isDisplayed()))
+        onView(withText("Oops.. something went wrong."))
+            .check(matches(isDisplayed()))
+    }
 }
