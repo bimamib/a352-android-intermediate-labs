@@ -14,10 +14,11 @@ class StudentRepository(private val studentDao: StudentDao) {
     fun getAllUniversityAndStudent(): LiveData<List<UniversityAndStudent>> = studentDao.getAllUniversityAndStudent()
     fun getAllStudentWithCourse(): LiveData<List<StudentWithCourse>> = studentDao.getAllStudentWithCourse()
 
-    suspend fun insertAllData() {
+    // menghapus kode berikut
+    /*suspend fun insertAllData() {
         studentDao.insertStudent(InitialDataSource.getStudents())
         studentDao.insertUniversity(InitialDataSource.getUniversities())
         studentDao.insertCourse(InitialDataSource.getCourses())
         studentDao.insertCourseStudentCrossRef(InitialDataSource.getCourseStudentRelation())
-    }
+    }*/
 }
