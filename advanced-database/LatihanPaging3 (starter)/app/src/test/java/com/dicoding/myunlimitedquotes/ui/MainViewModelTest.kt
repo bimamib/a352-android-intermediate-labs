@@ -17,7 +17,7 @@ import com.dicoding.myunlimitedquotes.network.QuoteResponseItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,6 +54,10 @@ class MainViewModelTest {
             workerDispatcher = Dispatchers.Main,
         )
         differ.submitData(actualQuote)
+
+        Assert.assertNotNull(differ.snapshot())
+        Assert.assertEquals(dummyQuote.size, differ.snapshot().size)
+        Assert.assertEquals(dummyQuote[0], differ.snapshot()[0])
     }
 }
 
