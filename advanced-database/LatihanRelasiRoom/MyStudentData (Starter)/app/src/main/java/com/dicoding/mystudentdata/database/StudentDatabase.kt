@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 @Database(
     entities = [Student::class, University::class, Course::class, CourseStudentCrossRef::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class StudentDatabase : RoomDatabase() {
 
