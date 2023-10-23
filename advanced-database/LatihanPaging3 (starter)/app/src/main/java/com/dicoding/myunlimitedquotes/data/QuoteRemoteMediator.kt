@@ -6,6 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.dicoding.myunlimitedquotes.database.QuoteDatabase
+import com.dicoding.myunlimitedquotes.database.RemoteKeys
 import com.dicoding.myunlimitedquotes.network.ApiService
 import com.dicoding.myunlimitedquotes.network.QuoteResponseItem
 
@@ -43,6 +44,26 @@ class QuoteRemoteMediator(
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
+        }
+    }
+
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, QuoteResponseItem>): RemoteKeys? {
+        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { data ->
+            database.remoteKeysDao().getRemoteKeysId(data.id)
+        }
+    }
+
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, QuoteResponseItem>): RemoteKeys? {
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
+            database.remoteKeysDao().getRemoteKeysId(data.id)
+        }
+    }
+
+    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, QuoteResponseItem>): RemoteKeys? {
+        return state.anchorPosition?.let { position ->
+            state.closestItemToPosition(position)?.id?.let { id ->
+                database.remoteKeysDao().getRemoteKeysId(id)
+            }
         }
     }
 }
