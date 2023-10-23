@@ -54,8 +54,15 @@ class QuoteRemoteMediator(
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
+                    database.remoteKeysDao().deleteRemoteKeys()
                     database.quoteDao().deleteAll()
                 }
+                val prevKey = if (page == 1) null else page - 1
+                val nextKey = if (endOfPaginationReached) null else page + 1
+                val keys = responseData.map {
+                    RemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
+                }
+                database.remoteKeysDao().insertAll(keys)
                 database.quoteDao().insertQuote(responseData)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
