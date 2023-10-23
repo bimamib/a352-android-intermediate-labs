@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.switchMap
+import androidx.paging.PagedList
 import com.dicoding.mystudentdata.database.Student
 import com.dicoding.mystudentdata.database.StudentAndUniversity
 import com.dicoding.mystudentdata.database.StudentWithCourse
@@ -27,7 +28,7 @@ class MainViewModel(private val studentRepository: StudentRepository) : ViewMode
         _sort.value = sortType
     }
 
-    fun getAllStudent(): LiveData<List<Student>> = _sort.switchMap {
+    fun getAllStudent(): LiveData<PagedList<Student>> = _sort.switchMap {
         studentRepository.getAllStudent(it)
     }
     fun getAllStudentAndUniversity(): LiveData<List<StudentAndUniversity>> = studentRepository.getAllStudentAndUniversity()
